@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="">
+
+    <title></title>
+
+    <style>
+        body{
+            background-color: black;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        #video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 0;
+        }
+
+
+        .titre
+        {
+            position: relative;
+            display: inline-block;
+            perspective: 1000px;
+        }
+
+        .titre:hover{
+            transform: rotateY(180deg);
+            transition: transform 0.5s;
+        }
+        .main_navigation a:hover {
+            color: orange;
+            border-bottom: 5px solid orange;
+        }
+
+        li{
+            border-bottom: 4px solid white;
+            padding-bottom: 10px;
+        }
+
+        .titre_recommendation
+        {
+            color: white;
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+
+        .movie-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 16px;
+        }
+        .poster {
+            width: 200px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            margin-right: 16px;
+        }
+
+        .nav_link{
+            position: relative;
+            left: 200px;
+        }
+        .logo
+        {
+            margin-top: 30px;
+            margin-left: 30px;
+            padding-left: 40px;
+        }
+
+        .logo:hover {
+            transform: translateY(-10px);
+        }
+
+        .navigation
+        {
+            color: white;
+            text-decoration: none;
+            padding: 20px;
+            font-size: 20px;
+
+        }
+        .main_navigation
+        {
+            display: flex;
+            flex-direction: row;
+            margin-top: -45px;
+            margin-left: 450px;
+
+
+        }
+        form
+        {
+            margin-right: 100px;
+            margin-bottom: 400px;
+        }
+        nav
+        {
+            float: left;
+            margin-left: 50px;
+        }
+
+
+        input[type="text"]
+        {
+            margin: 20px 0;
+            margin-top:48px;
+            margin-left: 180px;
+            padding: 20px;
+            width: 300px;
+            height: 10px;
+            border-color: orange;
+            border-radius: 30px;
+        }
+
+        input[type="text"]:hover
+        {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+
+        input[type="text"]
+        {
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"] {
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="text"]:hover{
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        .search-container{
+            margin-top: -90px;
+            margin-left: 1300px;
+            padding-left: 20px;
+        }
+
+        #carouselExampleSlidesOnly{
+            position: relative;
+            left: 3.5%;
+            top: 28px;
+            border:2px solid orange;
+            border-radius: 30px;
+            width: 1700px;
+        }
+
+
+        .movie-card-container {
+            padding-left: 100px; /* Adjust the value for desired right shift */
+        }
+
+        .movie-card {
+            display: inline-block;
+            width: 10%; /* Adjust width as needed for poster size */
+            margin-right: 20px; /* Adjust value for desired spacing */
+        }
+
+        .slides
+        {
+            margin-top: -400px;
+        }
+
+        .slides_images
+        {
+            width: 1500px;
+        }
+
+
+        button:hover{
+            background-color: orange;
+        }
+        button{
+            margin: 50px;
+            background-color: black;
+        }
+
+        .carousel
+        {
+            width: 2048px;
+            margin-top: -400px;
+
+
+        }
+
+        .carousel img{
+            height: 620px;
+            object-fit: cover;
+            border-radius: 30px;
+
+        }
+
+
+
+        .titre_recommendation:hover
+        {
+            transform: translateY(-10px);
+        }
+
+        .poster:hover {
+            transform:  translateY(-10px);
+            transition: transform 0.5s;
+            box-shadow: 0 0.5em 1em -0.5em black;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+
+<img class="logo" src="/BigWhite.svg" width="250px">
+
+<div style="text-align: center;"><nav class="nav_link">
+
+
+    <ul class="main_navigation">
+        <li style="list-style-type: none;">
+            <a id="moviesLink" href="/main.html" class="navigation" style="text-decoration: none;">Home</a>
+        </li>
+        <li style="list-style-type:none;" class="nav_k">
+            <a id="tvShowsLink"  href="/movies.html" class="navigation" style="text-decoration:none;">Movies</a>
+        </li>
+        <li style="list-style-type:none;"><a href="/series.html" class="navigation" style="text-decoration:none;">TV Shows</a></li>
+        <li style="list-style-type: none;"><a href="/mylist.html" class="navigation" style="text-decoration:none;">My List</a></li>
+    </ul>
+</nav>
+</div>
+<form action="/recherche" method="GET" class="search-container">
+    <div style="text-align: center;"><input type="text" name="rechercher" placeholder="Rechercher..." class="rechercher"></div>
+</form>
+
+
+<h1 style="position: relative; bottom: 390px; left: 100px;width: 1600px; color: orange;">
+    Bienvenue <span id="userEmail"></span>
+</h1>
+
+<div id="carouselExampleSlidesOnly" class="carousel" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="/1.jpg" alt="First slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: orange; font-size: 60px; margin-right: 20000px; margin-top: 500px;" class="titre">Elite</h5>
+                <p style="font-size: 20px; font-style: italic;">Elite est une série télévisée espagnole de suspense et de drame créée par Darío Madrona et Carlos Montero. Elle suit les histoires de trois lycéens qui sont admis dans un lycée prestigieux grâce à une bourse, mais qui doivent faire face à des problèmes sociaux et à des secrets sombres qui sont révélés à mesure que l'intrigue progresse. </p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="/10.jpg" alt="Second slide">
+            <div class="carousel-caption d-none d-md-block">
+                <<h5 style="color: orange; font-size: 60px; margin-right: 20000px; margin-top: 500px;" class="titre">Joker</h5>
+                <p style="font-size: 20px; font-style: italic;">Le film Joker raconte l'histoire de l'origine du célèbre personnage de Batman, le Joker. L'histoire suit Arthur Fleck, un homme marginal et rejeté par la société, qui se transforme en criminel enragé connu sous le nom de Joker. Avec un casting de premier ordre et une réalisation remarquable, Joker est devenu l'un des films de super-héros les plus acclamés par la critique de tous les temps.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="/11.jpg" alt="Third slide">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: orange; font-size: 60px; margin-right: 20000px; margin-top: 500px;" class="titre">Avatar</h5>
+                <p style="font-size: 20px; font-style: italic;">"Avatar: The Last Airbender" est une série animée américaine qui raconte l'histoire d'Aang, un jeune garçon qui se trouve être l'Avatar, une personne capable de maîtriser les quatre éléments : l'eau, la terre, le feu et l'air. Aang est aussi le seul à pouvoir mettre fin au conflit mondial engendré par la Nation du Feu, qui souhaite dominer les autres nations du monde.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+
+<h1 style="color: white;position: relative;left: 100px;width: 630px;top: 40px">Les Films Recommandés</h1>
+<br>
+<br>
+<div class="movie-list">
+    <div class="movie-card-container">
+        <div class="row" id="moviesRow">
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+
+<h1 style="color: white;position: relative;left: 100px;width: 630px;top: 40px">Les Series Recommandés</h1>
+<br>
+<br>
+<div class="movie-list">
+    <div class="movie-card-container">
+        <div class="row" id="moviesRow2">
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+
+</body>
+
+
+
+<script>
+
+    $(document).ready(function(){
+        async function fetchUserEmail() {
+            try {
+                let response = await fetch('/api/users/email');
+                if (response.ok) {
+                    let email = await response.text();
+                    document.getElementById('userEmail').textContent = email;
+                } else {
+                    console.error('Failed to fetch user email:', response.statusText);
+                    //Rediriger vers la page d'index si l'utilisateur n'est pas authentifié
+                    window.location.href = '/index2.html';
+                }
+            } catch (error) {
+                console.error('Error fetching user email:', error);
+                // Rediriger vers la page d'index en cas d'erreur
+                window.location.href = '/index2.html';
+            }
+        }
+        fetchUserEmail();
+    })
+
+
+  async function getMovieDetailsFromSession() {
+      try {
+          // Send a request to the endpoint that retrieves movie details from the session
+          let response = await fetch('/recommendation/movies/session');
+          if (!response.ok) {
+              throw new Error('Failed to fetch movie details from session');
+          }
+
+          // Get the movie details from the response
+          let movieDetails = await response.json();
+
+          // Process the movies data, e.g., display them in the UI
+          const moviesRow = document.getElementById('moviesRow');
+          movieDetails.forEach(movie => {
+              const movieCard = document.createElement('div');
+              movieCard.className = 'movie-card';
+              movieCard.style = 'display: inline-block; width: 10%;margin:30px;';
+              const button = document.createElement('button');
+              const link = document.createElement('a');
+              const img = document.createElement('img');
+              img.src = movie.big_image;
+              img.className = 'poster';
+              img.alt = movie.titre;
+              link.appendChild(img);
+              button.appendChild(link);
+              movieCard.appendChild(button);
+              moviesRow.appendChild(movieCard);
+          });
+
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  }
+
+  // Call the function to get movie details from session
+  getMovieDetailsFromSession();
+
+
+  async function getSerieDetailsFromSession() {
+      try {
+          // Send a request to the endpoint that retrieves serie details from the session
+          let response = await fetch('/recommendation/series/session');
+          if (!response.ok) {
+              throw new Error('Failed to fetch serie details from session');
+          }
+
+          // Get the serie details from the response
+          let serieDetails = await response.json();
+
+          console.log(serieDetails);
+          
+          const moviesRow = document.getElementById('moviesRow2');
+          serieDetails.forEach(serie => {
+              const movieCard = document.createElement('div');
+              movieCard.className = 'movie-card2';
+              movieCard.style = 'display: inline-block; width: 10%;margin:30px;';
+              const button = document.createElement('button');
+              const link = document.createElement('a');
+              const img = document.createElement('img');
+              img.src = serie.big_image;
+              img.className = 'poster';
+              img.alt = serie.titre;
+              link.appendChild(img);
+              button.appendChild(link);
+              movieCard.appendChild(button);
+              moviesRow.appendChild(movieCard);
+          });
+      } catch (error) {
+          console.error('Error:', error);
+      }
+  }
+
+  // Call the function to get serie details from session
+  getSerieDetailsFromSession();
+
+
+</script>
+
+
+
+</html>
+
+

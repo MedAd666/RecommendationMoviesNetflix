@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tv.css') }}">
+    <title></title>
+</head>
+
+<style>
+
+    label
+    {
+
+        margin-right: -170px;
+        transform: translateY(-10px);
+
+    }
+
+    li{
+        border-bottom: 4px solid white;
+        padding-bottom: 10px;
+    }
+
+    .poster {
+        margin: 25px;
+    }
+
+    button:hover{
+        background-color: orange;
+    }
+    button{
+        margin: 50px;
+        background-color: black;
+    }
+
+    form.filtrer {
+        position: relative;
+        z-index: 1;
+    }
+
+    .movie-list {
+        position: absolute;
+        justify-content: center;
+        top: 25%;
+        left: 0;
+        right: 0;
+    }
+
+
+    .movie-item {
+        display: flex;
+        overflow: hidden;
+        flex-wrap: wrap;
+    }
+
+
+
+    form.filtrer{
+        margin-top: -390px;
+    }
+
+    label
+    {
+        color: white;
+        font-size: 20px;
+    }
+
+    body{
+        background-color: black;
+        font-family: 'Helvetica', sans-serif;
+    }
+
+    .titre
+    {
+        position: relative;
+        display: inline-block;
+        perspective: 1000px;
+    }
+
+    .titre:hover{
+        transform: rotateY(180deg);
+        transition: transform 0.5s;
+    }
+    .main_navigation a:hover {
+        color: orange;
+        border-bottom: 5px solid orange;
+    }
+    .nav_k{
+        border-bottom: 4px solid white;
+        padding-bottom: 10px;
+    }
+    .titre_recommendation
+    {
+        color: white;
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+    .movie-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 16px;
+    }
+    .poster {
+        width: 200px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        margin-right: 16px;
+    }
+
+    .logo
+    {
+        margin-top: 30px;
+        margin-left: 30px;
+        padding-left: 40px;
+    }
+
+    .logo:hover {
+        transform: translateY(-10px);
+    }
+
+    .navigation
+    {
+        color: white;
+        text-decoration: none;
+        padding: 20px;
+        font-size: 20px;
+    }
+    .main_navigation
+    {
+        display: flex;
+        flex-direction: row;
+        margin-top: -45px;
+        margin-left: 450px;
+
+
+    }
+    form
+    {
+        margin-right: 100px;
+        margin-bottom: 400px;
+    }
+    nav
+    {
+        float: left;
+        margin-left: 50px;
+    }
+
+
+    input[type="text"],
+    select
+    {
+        margin: 20px 0;
+        margin-top:48px;
+        margin-left: 180px;
+        padding: 14px;
+        width: 300px;
+        height: 10px;
+        border-color: orange;
+        border-radius: 30px;
+    }
+
+    input[type="text"]:hover,
+    select:hover
+    {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transform: scale(1.1);
+    }
+
+    input[type="text"],
+    select
+    {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    input[type="text"],
+    select {
+        transition: all 0.3s ease-in-out;
+    }
+
+    input[type="text"]:hover,
+    select:hover{
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .search-container{
+        margin-top: -90px;
+        margin-left: 1000px;
+    }
+
+    .slides
+    {
+        margin-top: -400px;
+    }
+
+    .slides_images
+    {
+        width: 1500px;
+    }
+
+    .carousel
+    {
+        width: 1518px;
+        margin-top: -400px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .carousel img{
+        height: 620px;
+        object-fit: cover;
+    }
+
+
+    .titre_recommendation:hover
+    {
+        transform: translateY(-10px);
+    }
+
+    .poster:hover {
+        transform:  translateY(-10px);
+        transition: transform 0.5s;
+        box-shadow: 0 0.5em 1em -0.5em black;
+    }
+
+
+
+
+    label
+    {
+
+        margin-right: -170px;
+        transform: translateY(-10px);
+
+    }
+
+    li{
+        border-bottom: 4px solid white;
+        padding-bottom: 10px;
+    }
+
+    .poster {
+        margin: 25px;
+    }
+
+    button:hover{
+        background-color: orange;
+    }
+    button{
+        margin: 50px;
+        background-color: black;
+    }
+
+    form.filtrer {
+        position: relative;
+        z-index: 1;
+    }
+
+    .movie-list {
+        position: absolute;
+        justify-content: center;
+        top: 25%;
+        left: 0;
+        right: 0;
+    }
+
+
+    .movie-item {
+        display: flex;
+        overflow: hidden;
+        flex-wrap: wrap;
+    }
+
+
+
+    form.filtrer{
+        margin-top: -390px;
+    }
+
+    label
+    {
+        color: white;
+        font-size: 20px;
+    }
+
+    body{
+        background-color: black;
+        font-family: 'Helvetica', sans-serif;
+    }
+
+    .titre
+    {
+        position: relative;
+        display: inline-block;
+        perspective: 1000px;
+    }
+
+    .titre:hover{
+        transform: rotateY(180deg);
+        transition: transform 0.5s;
+    }
+    .main_navigation a:hover {
+        color: orange;
+        border-bottom: 5px solid orange;
+    }
+    .nav_k{
+        border-bottom: 4px solid white;
+        padding-bottom: 10px;
+    }
+    .titre_recommendation
+    {
+        color: white;
+        margin-left: 30px;
+        margin-top: 10px;
+    }
+    .movie-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 16px;
+    }
+    .poster {
+        width: 200px;
+        height: 300px;
+        background-size: cover;
+        background-position: center;
+        margin-right: 16px;
+    }
+
+    .logo
+    {
+        margin-top: 30px;
+        margin-left: 30px;
+        padding-left: 40px;
+    }
+
+    .logo:hover {
+        transform: translateY(-10px);
+    }
+
+    .navigation
+    {
+        color: white;
+        text-decoration: none;
+        padding: 20px;
+        font-size: 20px;
+    }
+    .main_navigation
+    {
+        display: flex;
+        flex-direction: row;
+        margin-top: -45px;
+        margin-left: 450px;
+
+
+    }
+    form
+    {
+        margin-right: 100px;
+        margin-bottom: 400px;
+
+
+    }
+
+
+    #genre-select{
+        width: 300px;
+    }
+
+
+
+    nav
+    {
+        margin-left: 210px;
+        margin-bottom: 200px;
+    }
+
+
+    input[type="text"],
+    select
+    {
+        margin: 20px 0;
+        margin-top:48px;
+        margin-left: 180px;
+        padding: 20px;
+        width: 300px;
+        height: 10px;
+        border-color: orange;
+        border-radius: 30px;
+    }
+
+    input[type="text"]:hover,
+    select:hover
+    {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transform: scale(1.1);
+    }
+
+    input[type="text"],
+    select
+    {
+        box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    input[type="text"],
+    select {
+        transition: all 0.3s ease-in-out;
+    }
+
+
+    input[type="text"]:hover,
+    select:hover{
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .search-container{
+        margin-top: -90px;
+        margin-left: 1000px;
+    }
+
+    .slides
+    {
+        margin-top: -400px;
+    }
+
+    .slides_images
+    {
+        width: 1500px;
+    }
+
+    .carousel
+    {
+        width: 1518px;
+        margin-top: -400px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .filtrer{
+        position: relative;
+        right: 1100px;
+        bottom:30px;
+    }
+
+    .carousel img{
+        height: 620px;
+        object-fit: cover;
+    }
+
+
+    .titre_recommendation:hover
+    {
+        transform: translateY(-10px);
+    }
+
+    .poster:hover {
+        transform:  translateY(-10px);
+        transition: transform 0.5s;
+        box-shadow: 0 0.5em 1em -0.5em black;
+    }
+</style>
+
+<body>
+<img class="logo" src="/BigWhite.svg" width="250px">
+<div style="text-align: center;"><nav class="nav_link">
+
+
+    <ul class="main_navigation">
+        <li style="list-style-type: none;">
+            <a href="/main.html" class="navigation" style="text-decoration: none;">Home</a>
+        </li>
+        <li style="list-style-type:none;" class="nav_k">
+            <a href="/movies.html" class="navigation" style="text-decoration:none;">Movies</a>
+        </li>
+        <li style="list-style-type:none;"><a href="/series.html" class="navigation" style="text-decoration:none;">TV Shows</a></li>
+        <li style="list-style-type: none;"><a href="/mylist.html" class="navigation" style="text-decoration:none;">My List</a></li>
+    </ul>
+</nav>
+</div>
+
+<form action="/recherche" method="GET" class="search-container"  >  <div style="text-align: center;position:relative; top: 30px"; ><input type="text" id="searchInput" name="rechercher" placeholder="Rechercher..." class="rechercher"></div></form>
+
+
+
+<form class="filtrer">
+    <label style="font-size: 30px; margin-left: 10px;">Filtrer par genre</label>
+    <select id="genre-select" style="width:200px;">
+        <option value="" selected>Sélectionner un genre</option>
+        <option value="all">Tous</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comédie</option>
+        <option value="Drama">Drame</option>
+        <option value="Western">Western</option>
+        <option value="Adventure">Aventure</option>
+        <option value="Thriller">Thriller</option>
+        <option value="Horror">Horreur</option>
+        <option value="Science Fiction">Science Fiction</option>
+        <option value="Animation">Animation</option>
+    </select>
+</form>
+
+<div class="movie-list">
+    <div class="movie-card-container">
+        <div class="row" id="moviesRow">
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    async function fetchUserEmail() {
+        try {
+            let response = await fetch('/api/users/email');
+            if (response.ok) {
+                let email = await response.text();
+                return email;
+            } else {
+                console.error('Failed to fetch user email:', response.statusText);
+                //Rediriger vers la page d'index si l'utilisateur n'est pas authentifié
+                window.location.href = '/index2.html';
+            }
+        } catch (error) {
+            console.error('Error fetching user email:', error);
+            // Rediriger vers la page d'index en cas d'erreur
+            window.location.href = '/index2.html';
+        }
+    }
+
+    fetchUserEmail();
+
+
+    var genreSelect = document.getElementById("genre-select");
+    genreSelect.addEventListener("change", function() {
+        var selectedGenre = this.value;
+        var movieItems = document.getElementsByClassName("movie-card");
+        for (var i = 0; i < movieItems.length; i++) {
+            var movieItem = movieItems[i];
+            var genres = movieItem.getAttribute("data-genres");
+            if (selectedGenre === "all" || genres.includes(selectedGenre)) {
+                movieItem.style.display = "inline-block";
+            }
+            else{
+                movieItem.style.display = "none";
+            }
+        }
+    });
+
+    fetch('/movies')
+        .then(response => response.json())
+        .then(movies => {
+            const moviesRow = document.getElementById('moviesRow');
+            movies.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.className = 'movie-card';
+                movieCard.style = 'display: inline-block; width: 25%;';
+                movieCard.setAttribute('data-genres', movie.genre);
+
+                const button = document.createElement('button');
+                const link = document.createElement('a');
+                link.href = "/each_movie.html?id="+movie.id; // Assurez-vous que l'URL est correcte
+                const img = document.createElement('img');
+                img.src = movie.big_image; // ou img.src = movie.poster si vous avez une petite image dans vos données
+                img.className = 'poster';
+                img.alt = movie.title;
+                link.appendChild(img);
+                button.appendChild(link);
+                movieCard.appendChild(button);
+                moviesRow.appendChild(movieCard);
+            });
+        })
+        .catch(error => console.error('Erreur de chargement des films:', error));
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        var searchText = this.value.toLowerCase();
+        var movieItems = document.getElementsByClassName('movie-card');
+
+        for (var i = 0; i < movieItems.length; i++) {
+            var movieItem = movieItems[i];
+            var movieTitle = movieItem.querySelector('img').alt.toLowerCase();
+
+            if (movieTitle.includes(searchText)) {
+                movieItem.style.display = 'inline-block';
+            } else {
+                movieItem.style.display = 'none';
+            }
+        }
+    });
+
+</script>

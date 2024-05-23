@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titre de votre page</title>
+    <style>
+        body {
+            background-image: url("3734378226309.5cd1a5d2e5711.jpg");
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            margin: auto;
+            position: relative;
+            right: 400px;
+            margin-bottom: 200px;
+        }
+
+        img {
+            margin-bottom: 300px;
+            margin-right: 300px;
+            height: 10px;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to bottom, rgba(255, 165, 0, 0.7), rgba(0, 0, 0, 0.7));
+            z-index: -1;
+        }
+
+        img {
+            position: relative;
+            left: 670px;
+            bottom: 160px;
+        }
+
+        .login-container {
+            padding: 2em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: orange;
+        }
+
+        .login-form h1 {
+            color: #333333;
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        .login-form p {
+            color: #666666;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .login-form input,
+        select {
+            width: 100%;
+            padding: 1em;
+            margin-bottom: 1em;
+            border: 1px solid #dddddd;
+            border-radius: 50px;
+            box-sizing: border-box;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 1em;
+            border: none;
+            border-radius: 50px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+<img src="/BigWhite.svg" style="width: 600px; height: 230px;">
+
+<form action="/api/users/create" method="POST">
+    <div class="login-container">
+        <div class="login-form">
+            <h1>S'Inscrire</h1>
+            <input type="email" id="email" placeholder="Email" name="email" required>
+            <input type="password" id="password" placeholder="Password" name="password" required>
+            <input type="number" id="age" placeholder="Age" required min="0" name="age">
+            <select name="role" id="role">
+                <option value="user">Utilisateur Normal</option>
+                <option value="admin">Admin</option>
+            </select>
+            <br>
+            <br>
+            <button type="submit">S'Inscrire</button>
+        </div>
+    </div>
+</form>
+</body>
+
+</html>
